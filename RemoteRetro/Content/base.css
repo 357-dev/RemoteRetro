@@ -1,0 +1,216 @@
+.-clickable {
+  cursor: pointer;
+}
+
+.-hide {
+  display: none;
+}
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none!important;
+}
+
+.form-error {
+  color: red;
+}
+
+.form-group input {
+  max-width: none;
+}
+
+.stick-it {
+  display: block;
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+.-join-retro {
+  display: block!important;
+}
+
+.-post-it-type {
+  margin: 1em;
+  display: block;
+}
+
+.input-wrapper {
+  margin-top: 1em;
+  position: relative;
+}
+
+.-clickable {
+  cursor: pointer;
+}
+
+.gate {
+  display: inline-block;
+  width: 300px;
+  padding: 10px 0 10px 15px;
+  color: #000;
+  background: #efefef;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  text-indent: 100px;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+.gate::-webkit-input-placeholder {
+  color: #000;
+  text-indent: 0;
+  font-weight: 300;
+}
+
+.gate+label {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 15px;
+  text-shadow: 0 1px 0 rgba(19,74,70,.4);
+  background: #2980b9;
+  color: #fff;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -webkit-transform-origin: left bottom;
+  -ms-transform-origin: left bottom;
+  transform-origin: left bottom;
+  z-index: 99;
+}
+
+.gate+label:before,
+.gate+label:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px;
+  background: #2980b9;
+  -webkit-transform-origin: left bottom;
+  -ms-transform-origin: left bottom;
+  transform-origin: left bottom;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.gate+label:before {
+  background: rgba(3,36,41,.2);
+  z-index: -2;
+  right: 20%;
+}
+
+.gate:focus,
+.gate:active {
+  color: #000;
+  text-indent: 0;
+  background: #fff;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.gate:focus::-webkit-input-placeholder,
+.gate:active::-webkit-input-placeholder {
+  color: #000;
+}
+
+.gate:focus+label,
+.gate:active+label {
+  -webkit-transform: rotate(-66deg);
+  -ms-transform: rotate(-66deg);
+  transform: rotate(-66deg);
+  border-radius: 3px;
+}
+
+.gate:focus+label:before,
+.gate:active+label:before {
+  -webkit-transform: rotate(10deg);
+  -ms-transform: rotate(10deg);
+  transform: rotate(10deg);
+}
+
+.post-it {
+  position: relative;
+  overflow: visible;
+  width: auto;
+}
+
+.post-it .-close {
+  float: right;
+}
+
+.post-it .-bad {
+  background: #f44336;
+}
+
+.post-it .-comment {
+  background: #ffeb3b;
+}
+
+.post-it .-good {
+  background: #4caf50;
+}
+
+.post-it .-member-name {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: .75em;
+}
+
+.post-it .mdl-badge.-votes {
+  position: absolute;
+  right: -10px;
+}
+
+.post-it .mdl-badge.-bad:after {
+  background: #f44336;
+}
+
+.post-it .mdl-badge.-comment:after {
+  background: #ffeb3b;
+}
+
+.post-it .mdl-badge.-good:after {
+  background: #4caf50;
+}
+
+.post-it .mdl-textfield {
+  padding: 0;
+}
+
+.-sprint-add {
+  padding: 16px!important;
+  margin-left: 7em!important;
+  color: #fff!important;
+}
+
+.mdl-spinner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+}
+
+.mdl-button.-bad {
+  background: #f44336;
+}
+
+.mdl-button.-comment {
+  background: #ffeb3b;
+}
+
+.mdl-button.-good {
+  background: #4caf50;
+}

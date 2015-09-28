@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-app="retro.home" ng-controller="HomeController" ng-cloak>
+    <div class="mdl-layout mdl-js-layout">
+
+        <header class="mdl-layout__header mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Remote Retro</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+
+        <form novalidate name="initialform" action="/retrospective/team/" method="GET" ng-cloak>
+            <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--4-col">
+                    <input class="mdl-textfield__input" type="text" name="t" id="teamname" required />
+                    <label class="mdl-textfield__label" for="teamname">Team name</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--4-col">
+                    <input class="mdl-textfield__input" type="text" name="u" id="name" required />
+                    <label class="mdl-textfield__label" for="name">Your name</label>
+                </div>
+
+                <div class="mdl-cell mdl-cell--4-col">
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-disabled="initialform.$invalid">
+                        Join
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

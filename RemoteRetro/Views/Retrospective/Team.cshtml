@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Team";
+}
+<div ng-app="retro.team" ng-controller="TeamController as teamCtrl">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title" ng-show="teamCtrl.activeSprint.SprintName" ng-cloak>{{teamCtrl.teamname}} ({{teamCtrl.activeSprint.SprintName}})</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Remote Retro</span>
+            <nav class="mdl-navigation">
+                <a ng-repeat="sprint in teamCtrl.sprints" class="mdl-navigation__link" ng-click="teamCtrl.selectSprint(sprint)" href="">{{sprint.SprintName}}</a>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                    <input class="mdl-textfield__input" type="text" name="createSprint" id="createSprint" ng-model="teamCtrl.newsprint" />
+                    <label class="mdl-textfield__label" for="createSprint">New sprint</label>
+                </div>
+                <button class="mdl-navigation__link mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored -sprint-add"
+                        ng-click="teamCtrl.createSprint()" ng-disabled="!teamCtrl.newsprint">
+                    <i class="material-icons">add</i>
+                </button>
+
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <!-- MDL Spinner Component -->
+                <div ng-show="teamCtrl.loading" class="mdl-spinner mdl-js-spinner is-active"></div>
+
+                <div ng-hide="teamCtrl.loading" ng-cloak>
+
+                    <div class="mdl-grid" ng-hide="teamCtrl.activeSprint.SprintName">
+                        <div class="mdl-cell mdl-cell--12-col">
+                            Please create your first sprint from the menu to get you started
+                        </div>
+                    </div>
+
+                    <div ng-show="teamCtrl.activeSprint.SprintName">
+                        <div class="mdl-grid" ng-show="teamCtrl.activeSprint.SprintName">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <input class="mdl-textfield__input" type="text" name="comment" id="comment" ng-model="teamCtrl.postitcomment" />
+                                <label class="mdl-textfield__label" for="comment">Comment</label>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored -bad" ng-click="teamCtrl.addBadPostIt()" ng-disabled="!teamCtrl.postitcomment">
+                                    <i class="material-icons">add</i>
+                                </button>
+                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored -comment" ng-click="teamCtrl.addCommentPostIt()" ng-disabled="!teamCtrl.postitcomment">
+                                    <i class="material-icons">add</i>
+                                </button>
+                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored -good" ng-click="teamCtrl.addGoodPostIt()" ng-disabled="!teamCtrl.postitcomment">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mdl-grid">
+
+                            <postit ng-repeat="postit in teamCtrl.activeSprint.PostIts | filter:{Type: 'good'}"
+                                    comment="postit.Comment"
+                                    post-it-id="postit.PostItId"
+                                    member-name="postit.Member"
+                                    type="postit.Type"
+                                    votes="postit.Votes"
+                                    remove-post-it="teamCtrl.removePostIt"
+                                    action="postit.Action"
+                                    my-name="teamCtrl.userName" 
+                                    group-mode="teamCtrl.groupMode" />
+
+                        </div>
+
+                        <div class="mdl-grid">
+
+                            <postit ng-repeat="postit in teamCtrl.activeSprint.PostIts | filter:{Type: 'comment'}"
+                                    comment="postit.Comment"
+                                    post-it-id="postit.PostItId"
+                                    member-name="postit.Member"
+                                    type="postit.Type"
+                                    votes="postit.Votes"
+                                    remove-post-it="teamCtrl.removePostIt"
+                                    action="postit.Action"
+                                    my-name="teamCtrl.userName"
+                                    group-mode="teamCtrl.groupMode" />
+
+                        </div>
+
+                        <div class="mdl-grid">
+
+                            <postit ng-repeat="postit in teamCtrl.activeSprint.PostIts | filter:{Type: 'bad'}"
+                                    comment="postit.Comment"
+                                    post-it-id="postit.PostItId"
+                                    member-name="postit.Member"
+                                    type="postit.Type"
+                                    votes="postit.Votes"
+                                    remove-post-it="teamCtrl.removePostIt"
+                                    action="postit.Action"
+                                    my-name="teamCtrl.userName"
+                                    group-mode="teamCtrl.groupMode" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</div>

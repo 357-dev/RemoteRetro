@@ -1,0 +1,28 @@
+﻿<div id="{{postItId}}" class="mdl-cell mdl-cell--4-col -{{type}}">
+    <div class="mdl-card mdl-shadow--4dp post-it">
+        <div class="mdl-card__actions mdl-card--border -{{type}}">
+            <i class="material-icons -clickable" ng-hide="IHaveVotedUp()" ng-click="voteUp()">thumb_up</i>
+            <i class="material-icons -clickable" ng-show="IHaveVotedUp()" ng-click="voteDown()">thumb_down</i>
+            <i class="material-icons -clickable" ng-click="toggleAction()">work</i>
+            <i class="material-icons -clickable" ng-show="groupMode" ng-click="groupSelect()">work</i>
+            <i class="material-icons -clickable -close" ng-show="isMyPostIt" ng-click="tryRemovePostIt()">clear</i>
+
+        </div>
+        <span ng-show="votes.length > 0" class="mdl-badge -votes -{{type}}" data-badge="{{numberOfVotes()}}"></span>
+        <div class="mdl-card__title mdl-card--expand">
+            <p>
+                {{comment}}
+            </p>
+        </div>
+        <div class="mdl-card__title mdl-card--expand -member-name">
+            <i class="material-icons">account_box</i>{{memberName}}
+        </div>
+
+        <div ng-show="actionFormVisible || action" class="mdl-card__actions mdl-card--border -{{type}}">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                <input class="mdl-textfield__input" type="text" name="addAction" id="addAction" ng-model="action" ng-blur="addAction()" />
+                <label class="mdl-textfield__label" for="addAction">Action</label>
+            </div>
+        </div>
+    </div>
+</div>

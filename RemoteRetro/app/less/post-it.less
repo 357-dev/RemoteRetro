@@ -1,0 +1,54 @@
+﻿.post-it {
+    position: relative;
+    overflow: visible;
+    width: auto;
+
+    .-close {
+        float: right;
+    }
+
+    .-bad {
+        background: @bad;
+    }
+
+    .-comment {
+        background: @comment;
+    }
+
+    .-good {
+        background: @good;
+    }
+
+    .-member-name {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 0.75em;
+    }
+
+    .mdl-badge {
+        &.-votes {
+            position: absolute;
+            right: -10px;
+        }
+
+        &.-bad:after {
+            background: @bad;
+        }
+
+        &.-comment:after {
+            background: @comment;
+        }
+
+        &.-good:after {
+            background: @good;
+        }
+    }
+
+    .-group-selected {
+        opacity: 0.5;
+    }
+
+    .mdl-textfield {
+        padding: 0;
+    }
+}
