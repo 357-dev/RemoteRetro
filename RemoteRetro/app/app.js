@@ -28,7 +28,8 @@ module.directive("postit", [ "PostItService", function(a) {
             myName: "=",
             votes: "=",
             removePostIt: "=",
-            action: "="
+            action: "=",
+            groupMode: "="
         },
         templateUrl: "/app/js/post-it/postit-template.html",
         replace: !0,
@@ -56,6 +57,8 @@ module.directive("postit", [ "PostItService", function(a) {
                 a.votePostItDown(b.postItId, b.myName).then(function(a) {
                     b.votes = a.data;
                 });
+            }, b.groupSelect = function() {
+                b.groupSelected = !0;
             };
         }
     };
@@ -124,7 +127,7 @@ module.directive("postit", [ "PostItService", function(a) {
     };
 } ]), angular.module("retro.team").controller("TeamController", [ "TeamService", function(a) {
     var b, c, d = this;
-    d.loading = !0;
+    d.loading = !0, d.groupMode = !1;
     var e = function(a) {
         a = a.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var b = new RegExp("[\\?&]" + a + "=([^&#]*)"), c = b.exec(location.search);
