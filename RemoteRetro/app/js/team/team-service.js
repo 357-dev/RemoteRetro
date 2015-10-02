@@ -20,10 +20,15 @@ angular.module('retro.team').service('TeamService',
         return http.post(retroapi.joinTeam + '?teamname=' + teamname);
     };
 
+    var removePostIt = function (postItId) {
+        return http.post(retroapi.removePostIt + '?postItId=' + postItId);
+    };
+
     return {
         joinTeam: joinTeam,
         createSprint: createSprint,
-        addPostIt: addPostIt
+        addPostIt: addPostIt,
+        removePostIt: removePostIt
     };
 }
 ]);

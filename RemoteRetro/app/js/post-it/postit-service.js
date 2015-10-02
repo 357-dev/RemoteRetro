@@ -10,17 +10,12 @@ angular.module('retro.postit').service('PostItService',
         return http.post(retroapi.votePostItDown + '?postItId=' + postItId + '&member=' +  memberName);
     };
 
-    var removePostIt = function (postItId) {
-        return http.post(retroapi.removePostIt + '?postItId=' + postItId);
-    };
-
     var addAction = function (postItId, action) {
         return http.post(retroapi.addAction + '?postItId=' + postItId + '&action=' + action);
     };
 
     return {
         addAction: addAction,
-        removePostIt: removePostIt,
         votePostItUp: votePostItUp,
         votePostItDown: votePostItDown
     };

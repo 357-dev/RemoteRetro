@@ -9,6 +9,13 @@
                 <span class="mdl-layout-title" ng-show="teamCtrl.activeSprint.SprintName" ng-cloak>{{teamCtrl.teamname}} ({{teamCtrl.activeSprint.SprintName}})</span>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
+                <i class="material-icons -clickable" ng-show="!teamCtrl.groupMode" ng-click="teamCtrl.toggleGroupMode()">call_merge</i>
+                <div ng-show="teamCtrl.groupMode">
+                    <i class="material-icons -clickable -good" ng-click="teamCtrl.groupAsGood()">call_merge</i>
+                    <i class="material-icons -clickable -comment" ng-click="teamCtrl.groupAsComment()">call_merge</i>
+                    <i class="material-icons -clickable -bad" ng-click="teamCtrl.groupAsBad()">call_merge</i>
+                    <i class="material-icons -clickable" ng-click="teamCtrl.toggleGroupMode()">clear</i>
+                </div>
             </div>
         </header>
 
@@ -42,9 +49,9 @@
                     </div>
 
                     <div ng-show="teamCtrl.activeSprint.SprintName">
-                        <div class="mdl-grid" ng-show="teamCtrl.activeSprint.SprintName">
+                        <div class="mdl-grid" ng-hide="teamCtrl.groupMode">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                                <input class="mdl-textfield__input" type="text" name="comment" id="comment" ng-model="teamCtrl.postitcomment" />
+                                <input class="mdl-textfield__input" type="text" name="comment" id="comment" ng-model="teamCtrl.postitcomment"/>
                                 <label class="mdl-textfield__label" for="comment">Comment</label>
                             </div>
                             <div class="mdl-cell mdl-cell--12-col">
@@ -60,6 +67,12 @@
                             </div>
                         </div>
 
+                        <div class="mdl-grid" ng-show="teamCtrl.groupMode">
+                            <div class="mdl-cell mdl-cell--12-col -group-message">
+                                Please select post its to merge and then which colour post it to merge them to from the menu on the top right.
+                            </div>
+                        </div>
+
                         <div class="mdl-grid">
 
                             <postit ng-repeat="postit in teamCtrl.activeSprint.PostIts | filter:{Type: 'good'}"
@@ -70,8 +83,9 @@
                                     votes="postit.Votes"
                                     remove-post-it="teamCtrl.removePostIt"
                                     action="postit.Action"
-                                    my-name="teamCtrl.userName" 
-                                    group-mode="teamCtrl.groupMode" />
+                                    my-name="teamCtrl.userName"
+                                    group-mode="teamCtrl.groupMode"
+                                    group-selected="postit.groupSelected" />
 
                         </div>
 
@@ -86,7 +100,8 @@
                                     remove-post-it="teamCtrl.removePostIt"
                                     action="postit.Action"
                                     my-name="teamCtrl.userName"
-                                    group-mode="teamCtrl.groupMode" />
+                                    group-mode="teamCtrl.groupMode"
+                                    group-selected="postit.groupSelected" />
 
                         </div>
 
@@ -101,7 +116,8 @@
                                     remove-post-it="teamCtrl.removePostIt"
                                     action="postit.Action"
                                     my-name="teamCtrl.userName"
-                                    group-mode="teamCtrl.groupMode" />
+                                    group-mode="teamCtrl.groupMode"
+                                    group-selected="postit.groupSelected" />
 
                         </div>
                     </div>

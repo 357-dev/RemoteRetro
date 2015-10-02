@@ -1,4 +1,12 @@
-﻿.-clickable {
+﻿@bad: #F44336;
+@comment: #FFEB3B;
+@good: #4CAF50;
+
+@import 'form.less';
+@import 'post-it.less';
+@import 'team.less';
+
+.-clickable {
     cursor: pointer;
 }
 
@@ -7,13 +15,19 @@
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+    display: none !important;
 }
 
-@bad: #F44336;
-@comment: #FFEB3B;
-@good: #4CAF50;
+.material-icons {
+    &.-bad {
+        color: @bad;
+    }
 
-@import 'form.less';
-@import 'post-it.less';
-@import 'team.less';
+    &.-comment {
+        color: @comment;
+    }
+
+    &.-good {
+        color: @good;
+    }
+}

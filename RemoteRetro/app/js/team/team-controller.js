@@ -1,6 +1,6 @@
 ﻿/* global angular: true, location: true, window: true, document: true */
 angular.module('retro.team')
-    .controller('TeamController', ['TeamService', function (teamService) {
+    .controller('TeamController', ['TeamService', '$q', function (teamService, $q) {
         var teamId, activeSprintId;
         var ctrl = this;
         ctrl.loading = true;
@@ -12,17 +12,17 @@ angular.module('retro.team')
                 results = regex.exec(location.search);
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         };
-     
+
         ctrl.userName = getParameterByName('u');
         var teamname = getParameterByName('t');
 
-        ctrl.selectSprint = function(sprint) {
+        ctrl.selectSprint = function (sprint) {
             ctrl.activeSprint = sprint;
             activeSprintId = sprint.SprintId;
         };
 
-        var addPostIt = function (type) {
-            teamService.addPostIt(activeSprintId, ctrl.userName, ctrl.postitcomment, type)
+        var addPostIt = function (activeSprintId, userName, postitcomment, type) {
+            teamService.addPostIt(activeSprintId, userName, postitcomment, type)
                 .then(function (response) {
                     ctrl.activeSprint.PostIts.push(response.data);
                     ctrl.postitcomment = '';
@@ -32,28 +32,30 @@ angular.module('retro.team')
         ctrl.removePostIt = function (postItId) {
             var i, indexToRemove;
 
-            for (i = 0; i < ctrl.activeSprint.PostIts.length; i += 1) {
-                if (ctrl.activeSprint.PostIts[i].PostItId === postItId) {
-                    indexToRemove = i;
-                    break;
-                }
-            }
+            return teamService.removePostIt(postItId).then(function () {
 
-            if (indexToRemove) {
+                for (i = 0; i < ctrl.activeSprint.PostIts.length; i += 1) {
+                    if (ctrl.activeSprint.PostIts[i].PostItId === postItId) {
+                        indexToRemove = i;
+                        break;
+                    }
+                }
+
                 ctrl.activeSprint.PostIts.splice(indexToRemove, 1);
-            }
+            });
+
         };
 
         ctrl.addGoodPostIt = function () {
-            addPostIt('good');
+            addPostIt(activeSprintId, ctrl.userName, ctrl.postitcomment, 'good');
         };
 
         ctrl.addCommentPostIt = function () {
-            addPostIt('comment');
+            addPostIt(activeSprintId, ctrl.userName, ctrl.postitcomment, 'comment');
         };
 
         ctrl.addBadPostIt = function () {
-            addPostIt('bad');
+            addPostIt(activeSprintId, ctrl.userName, ctrl.postitcomment, 'bad');
         };
 
         ctrl.createSprint = function () {
@@ -64,7 +66,51 @@ angular.module('retro.team')
                 ctrl.newsprint = '';
             });
         };
-       
+
+        ctrl.toggleGroupMode = function () {
+            ctrl.groupMode = !ctrl.groupMode;
+        };
+
+        var groupAs = function(type) {
+            var i, postIt, postItIds = [], promises = [], finalComment = '', finalMembers = '';
+
+            for (i = 0; i < ctrl.activeSprint.PostIts.length; i += 1) {
+                postIt = ctrl.activeSprint.PostIts[i];
+
+                if (postIt.groupSelected) {
+                    postItIds.push(postIt.PostItId);
+
+                    finalComment += postIt.Comment + '. ';
+                    //finalVotes += postIt.Votes;
+                    if (finalMembers.indexOf(postIt.Member) === -1) {
+                        finalMembers += postIt.Member + ' ';
+                    } 
+                }
+            }
+
+            for (i = 0; i < postItIds.length; i += 1) {
+                promises.push(ctrl.removePostIt(postItIds[i]));
+            }
+
+            $q.all(promises).then(function () {
+                addPostIt(activeSprintId, finalMembers, finalComment, type);
+            });
+
+            ctrl.groupMode = false;
+        };
+
+        ctrl.groupAsGood = function () {
+            groupAs('good');
+        };
+
+        ctrl.groupAsComment = function () {
+            groupAs('comment');
+        };
+
+        ctrl.groupAsBad = function () {
+            groupAs('bad');
+        };
+
         teamService.joinTeam(teamname)
             .then(function (response) {
                 teamId = response.data.TeamId;

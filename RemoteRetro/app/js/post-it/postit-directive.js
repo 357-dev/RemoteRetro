@@ -13,7 +13,8 @@ module.directive('postit', ['PostItService',
                 votes: '=',
                 removePostIt: '=',
                 action: '=',
-                groupMode: '='
+                groupMode: '=',
+                groupSelected: '='
             },
             templateUrl: '/app/js/post-it/postit-template.html',
             replace: true,
@@ -21,7 +22,7 @@ module.directive('postit', ['PostItService',
                 scope.actionFormVisible = scope.action;
                 scope.isMyPostIt = scope.memberName === scope.myName;
 
-                scope.numberOfVotes = function() {
+                scope.numberOfVotes = function () {
                     return scope.votes && scope.votes.split('|').length - 1;
                 };
 
@@ -44,11 +45,7 @@ module.directive('postit', ['PostItService',
                 };
 
                 scope.tryRemovePostIt = function () {
-                    postItService.removePostIt(scope.postItId).then(function (response) {
-                        if (!!response.data) {
-                            scope.removePostIt(scope.postItId);
-                        }
-                    });
+                    scope.removePostIt(scope.postItId);
                 };
 
                 scope.voteUp = function () {
@@ -63,10 +60,9 @@ module.directive('postit', ['PostItService',
                     });
                 };
 
-
-                scope.groupSelect = function () {
-                    scope.groupSelected = true;
-                }
+                scope.toggleGroupSelect = function () {
+                    scope.groupSelected = !scope.groupSelected;
+                };
             }
         };
     }
